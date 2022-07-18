@@ -60,6 +60,10 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+bootstrap5/
+img/
+static/jquery-3.6.0.min.js
+static/bootstrap5/
 
 # Flask stuff:
 instance/
