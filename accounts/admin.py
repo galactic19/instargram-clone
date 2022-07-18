@@ -4,5 +4,5 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'first_name', 'last_name', 'email', 'website_url', 'bio']
+    list_display = ['username', 'first_name', 'last_name', 'email', 'website_url', 'is_active', 'is_staff', 'is_superuser']
     

@@ -11,8 +11,8 @@ class SignUpForm(UserCreationForm):
         self.fields['first_name'].required = True
     
     username = forms.CharField(max_length=20,
-                            label='가입자 성함',
-                            help_text='가입자 본인 이름을 입력하세요')
+                            label='아이디',
+                            help_text="아이디는 영문+숫자 조합만 가능합니다.")
     
     class Meta(UserCreationForm.Meta):
         model = User
