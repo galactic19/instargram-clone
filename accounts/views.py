@@ -6,13 +6,28 @@ from .models import User
 from .forms import SignUpForm
 
 
-login = LoginView.as_view(template_name='accounts/login_form.html')
+class UserLogin(LoginView):
+    model = User
+    template_name = 'accounts/login_form.html'
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            '''
+                로그인 상태 접근 거부 
+            '''
+            return redirect('/')       
+        return super().dispatch(request, *args, **kwargs) 
+login = UserLogin.as_view()
+
 
 def logout(request):
     if request.user.is_authenticated:
         messages.success(request, '로그아웃 되었습니다.')
         return logout_then_login(request)
     else:
+        '''
+            비로그인자가 접근시 로그인url로 이동
+        '''
         return redirect('accounts:login')
 
 

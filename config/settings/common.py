@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Third Apps
     'debug_toolbar',
     'django_bootstrap5',
+    'django_pydenticon',
     # My Apps
     'accounts',
     'testmodel',
