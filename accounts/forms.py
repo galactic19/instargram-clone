@@ -11,14 +11,12 @@ class SignUpForm(UserCreationForm):
         self.fields['first_name'].required = True
     
     username = forms.CharField(max_length=20,
-                            label='아이디',
-                            help_text="아이디는 영문+숫자 조합만 가능합니다.")
+            label='아이디',
+            help_text="아이디는 영문+숫자 조합만 가능합니다.")
     
     class Meta(UserCreationForm.Meta):
         model = User
-<<<<<<< HEAD
         fields = ['username','email', 'website_url', 'bio']
-=======
         fields = ['username', 'email', 'first_name', 'website_url', 'bio']
 
     def clean_email(self):
@@ -28,4 +26,3 @@ class SignUpForm(UserCreationForm):
             if qs.exists():
                 raise forms.ValidationError('이미 등록된 이메일 주소 입니다.')
         return email
->>>>>>> 1baf8e4ec60e06b0fbfbb1820414203e41aaf5ca
