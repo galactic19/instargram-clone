@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
+from django.contrib.auth.decorators import login_required
 from .models import User
-from .forms import SignUpForm
+from .forms import SignUpForm, ProfileForm
 
 
 class UserLogin(LoginView):
@@ -45,3 +46,17 @@ def signup(request):
     
     context = {'form': form}
     return render(request, 'accounts/signup_form.html', context)
+
+
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            messages.success(request, '프로필 정보가 수정 되었습니다.')
+            form.save()
+    else:
+        form = ProfileForm(instance=request.user)
+        
+    context = {'form': form}
+    return render(request, 'accounts/profile_edit_form.html', context)

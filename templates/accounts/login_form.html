@@ -4,8 +4,10 @@
 
 {% block content %}
 
-    <div class="container">
-        {% include '_form.html' %}
+    <div class="container py-5 my-3">
+        <div class="col-sm-3 offset-5">
+            {% include '_form.html' with submit_label='로그인' %}
+        </div>
     </div>
 
 {% endblock content %}

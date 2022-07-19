@@ -1,6 +1,10 @@
 {% load django_bootstrap5 %}
+{% if form %}
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form%}
     <button type="submit" class="btn btn-primary">{{ submit_label|default:'저장' }}</button>
 </form>
+{% else %}
+form 이 없습니다.
+{% endif %}
