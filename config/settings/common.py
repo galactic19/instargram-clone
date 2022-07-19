@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third Apps
     'debug_toolbar',
+    'django_bootstrap5',
     # My Apps
     'accounts',
     'testmodel',
