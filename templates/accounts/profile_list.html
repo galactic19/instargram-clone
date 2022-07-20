@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}회원정보 변경{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5 my-3">
+    <h1 class="text-center py-2">회원정보 변경</h1>
+    <div class="col-sm-6 offset-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{% url 'accounts:profile_edit' %}" class="text-decoration-none">회원정보 변경</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#" class="text-decoration-none" title="준비중 입니다.">
+                    비밀번호 변경
+                </a>
+                <span class="small text-dark">(준비중 입니다.)</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}
