@@ -34,7 +34,7 @@ def logout(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             sign_user = form.save()
             auth_login(request, sign_user)
@@ -46,6 +46,12 @@ def signup(request):
     
     context = {'form': form}
     return render(request, 'accounts/signup_form.html', context)
+
+
+@login_required
+def profile_list(request):
+    return render(request, 'accounts/profile_list.html')
+
 
 
 @login_required

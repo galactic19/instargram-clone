@@ -9,4 +9,6 @@ body{
     height:30px;
     border-radius: 50%;
     border:2px solid #f1f1f1;
+    object-fit: cover;
+    object-position: 50% 0;
 }
