@@ -12,10 +12,11 @@
                 <a href="{% url 'accounts:profile_edit' %}" class="text-decoration-none">회원정보 변경</a>
             </li>
             <li class="list-group-item">
-                <a href="#" class="text-decoration-none" title="준비중 입니다.">
+                <a href="{% url 'accounts:password_change' %}" 
+                    class="text-decoration-none" 
+                    title="비밀번호를 변경할 수 있습니다.">
                     비밀번호 변경
                 </a>
-                <span class="small text-dark">(준비중 입니다.)</span>
             </li>
         </ul>
     </div>

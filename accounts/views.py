@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
-from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
+from django.contrib.auth.views import (
+    LoginView, LogoutView, logout_then_login, 
+    PasswordChangeView as Auth_PasswordChangeView,
+)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import User
-from .forms import SignUpForm, ProfileForm
+from .forms import SignUpForm, ProfileForm, PasswordChageForm
 
 
 class UserLogin(LoginView):
@@ -66,3 +71,16 @@ def profile_edit(request):
         
     context = {'form': form}
     return render(request, 'accounts/profile_edit_form.html', context)
+
+
+class PasswordChangeView(LoginRequiredMixin, Auth_PasswordChangeView):
+    success_url = reverse_lazy('accounts:profile_list')
+    template_name = 'accounts/passrowd_change_form.html'
+    form_class = PasswordChageForm
+    
+    def form_valid(self, form):
+        messages.success(self.request, '비밀번호가 변경 되었습니다.')
+        return super().form_valid(form)
+        
+    
+passord_change = PasswordChangeView.as_view()

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}비밀번호 변경{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5 my-3">
+    <div class="col-sm-5 offset-3">
+        {% include '_form.html' with submit_label='비밀번호 변경' title_label='비밀번호 변경' %}
+    </div>
+</div>
+
+{% endblock content %}

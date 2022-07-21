@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.idea
 # C extensions
 *.so
 
@@ -64,6 +65,7 @@ bootstrap5/
 img/
 static/jquery-3.6.0.min.js
 static/bootstrap5/
+migrations/
 
 # Flask stuff:
 instance/

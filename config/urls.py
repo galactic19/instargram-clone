@@ -10,8 +10,10 @@ from django_pydenticon.views import image as pydenticon_image
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('instargram.urls')),
     path('', login_required(TemplateView.as_view(template_name='root.html')), name='root'),
     path('accounts/', include('accounts.urls')),
+    path('instartgram/', include('instargram.urls')),
     path('identicon/image/<path:data>/', pydenticon_image, name='pydenticon_image'),
 ]
 

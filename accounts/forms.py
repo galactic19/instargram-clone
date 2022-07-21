@@ -1,6 +1,9 @@
 from tabnanny import verbose
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import (
+    UserCreationForm, 
+    PasswordChangeForm as Auth_PasswordChangeForm
+)
 from .models import User
 
 
@@ -16,7 +19,7 @@ class SignUpForm(UserCreationForm):
     
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username','email', 'website_url', 'bio']
+        # fields = ['username','email', 'website_url', 'bio']
         fields = ['username', 'email', 'first_name', 'website_url', 'bio']
 
     def clean_email(self):
@@ -33,3 +36,14 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['profile_image','username', 'phone_number', 'gender', 'first_name', 'email', 'bio']
+        
+
+class PasswordChageForm(Auth_PasswordChangeForm):
+    
+    def clean_new_password2(self):
+        old_pass = self.cleaned_data.get('old_password')
+        new_password2 = super().clean_new_password2()
+        
+        if old_pass == new_password2:
+            raise forms.ValidationError('새로운 비밀번호는 기존 비밀번호와 같을수 없습니다')
+        return new_password2
