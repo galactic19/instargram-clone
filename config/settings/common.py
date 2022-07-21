@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_pydenticon',
     # My Apps
     'accounts',
+    'instargram',
     'testmodel',
     
 ]

@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container py-5">
-    루트 페이지
+    {% include '_form.html' with submit_label='포스트 저장' title_label='포스트 등록' %}
 </div>
 
 {% endblock content %}

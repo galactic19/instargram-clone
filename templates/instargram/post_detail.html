@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Detail{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5 my-3">
+    <div class="col-sm-6 offset-3">
+        {% if post_list %}
+            <p>작성자 : {{post_list.author.username }} / 등록일 : {{ post_list.created_at }}</p>
+            <img src="{{ post_list.photo.url }}" alt="" srcset="">
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
