@@ -15,6 +15,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('instartgram/', include('instargram.urls')),
     path('identicon/image/<path:data>/', pydenticon_image, name='pydenticon_image'),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 

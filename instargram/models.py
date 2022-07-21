@@ -15,7 +15,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='', help_text='파일첨부는 필수 항목 입니다.')
+    photo = models.ImageField(upload_to='instargram/%Y/%m/%d', help_text='파일첨부는 필수 항목 입니다.')
     caption = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
