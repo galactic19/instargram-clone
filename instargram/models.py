@@ -14,6 +14,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
     
+    def get_absolute_url(self):
+        return reverse("instargram:tag_list", args=[self.pk])
+    
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -44,12 +47,12 @@ class Post(models.Model):
             
     def caption_tag_links(self):
         '''
-            태그에 링크를 걸어줄려고 합니다.
-            정규식으로 찾은 태그들을 
+            태그에 링크를 걸어줄려고 합니다. 정규식으로 찾은 태그들을 
             replace 를 통해 문자열 변경 처리함
         '''
         caption_list = self.caption
         for tag in self.tag_set.all():
-            link = r"<a href='#'>{}</a>".format(tag.name)
+            url = tag.get_absolute_url()
+            link = r"<a href='{}' class='text-decoration-none'>{}</a>".format(url, tag.name)
             caption_list = caption_list.replace(tag.name, link)
         return caption_list

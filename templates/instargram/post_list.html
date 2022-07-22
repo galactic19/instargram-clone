@@ -6,8 +6,8 @@
 
     <div class="container py-5 my-3">
         <div class="col-sm-6 offset-3">
-            {% if post_list %}
-                {% for post in post_list %}
+            {% if object_list %}
+                {% for post in object_list %}
                     <a href="{% url 'instargram:post_detail' post.pk %}"><img src="{{post.photo.url}}" alt="post"></a>
                 {% endfor %}
             {% else %}
