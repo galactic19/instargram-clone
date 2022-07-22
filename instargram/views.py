@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -13,7 +12,8 @@ def post_new(request):
         if form.is_valid():
             form.save(commit=False)
             form.instance.author = request.user
-            post = form.save(commit=True)
+            post = form.save()
+            post.tag_set.add(*post.extract_tag_list())
             messages.success(request, '포스트 등록이 완료 되었습니다.')
             return redirect(post)
     else:

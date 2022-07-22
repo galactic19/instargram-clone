@@ -5,11 +5,10 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import Post, Tag
 
 class PostNewForm(forms.ModelForm):
-    caption = SummernoteTextFormField()
+    # caption = SummernoteTextFormField()
     class Meta:
         model = Post
-        # fields = '__all__'
-        fields = ['photo', 'caption', 'tag_set']
-        # widgets = {
-        #     'caption': SummernoteWidget(),
-        # }
+        fields = ['photo', 'caption', 'location']
+        widgets = {
+            'caption': SummernoteWidget(),
+        }

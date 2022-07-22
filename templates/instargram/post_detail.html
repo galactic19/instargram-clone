@@ -9,6 +9,18 @@
         {% if post_list %}
             <p>작성자 : {{post_list.author.username }} / 등록일 : {{ post_list.created_at }}</p>
             <img src="{{ post_list.photo.url }}" alt="" srcset="">
+            <p>
+                {% autoescape off %}
+                {{ post_list.caption_tag_links }}
+                {% endautoescape %}
+            </p>
+            <hr>
+            <p>
+                <span class="badge bg-danger">태그</span> : 
+                {% for tag in post_list.tag_set.all %}
+                    <span class="me-3 small">{{ tag }}</span>
+                {% endfor %}
+            </p>
         {% endif %}
     </div>
 </div>

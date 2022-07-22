@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-from os.path import abspath, dirname
+
+import collections
+if not hasattr(collections, 'Callable'):
+    collections.Callable = collections.abc.Callable
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
