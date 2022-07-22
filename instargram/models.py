@@ -53,6 +53,6 @@ class Post(models.Model):
         caption_list = self.caption
         for tag in self.tag_set.all():
             url = tag.get_absolute_url()
-            link = r"<a href='{}' class='text-decoration-none'>{}</a>".format(url, tag.name)
+            link = r"<a href='{url}' class='text-decoration-none'>{tagname}</a>".format(url=url, tagname=tag.name)
             caption_list = caption_list.replace(tag.name, link)
         return caption_list
