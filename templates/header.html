@@ -36,11 +36,7 @@
           {% if user.is_authenticated %}
           <li class="nav-item me-3">
             <a href="{% url 'accounts:profile_list' %}">
-                {% if user.profile_image %}
-                  <img src="{{ user.profile_image.url }}" alt="{{ user.username}}" title="{{ user}}" class="profile-image">
-                {% else %}
-                  <img src="{% url 'pydenticon_image' data=user %}" alt="{{user.username}}" title="{{user.username}}" srcset="" class="profile-image">
-                {% endif %}
+              <img src="{{ user.user_profile_image_url }}" alt="{{ user.username}}" title="{{ user}}" class="profile-image">
             </a>
           </li>
           {% endif %}

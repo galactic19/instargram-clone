@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Post, Tag
@@ -37,8 +37,18 @@ def post_detail(request, pk):
     context = {'post_list': post}
     return render(request, 'instargram/post_detail.html', context)
 
+# class PostDetailView(LoginRequiredMixin, DetailView):
+#     model = Post
+#     template_name = 'instargram/post_detail.html'
+    
+
+# post_detail = PostDetailView.as_view()
+
+
 
 def tag_list(req, pk):
     context = {'object_list': get_object_or_404(Tag, pk=pk).post_set.all()}
     return render(req, 'instargram/post_list.html', context)
+
+    
         

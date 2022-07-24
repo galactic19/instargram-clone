@@ -2,6 +2,7 @@ from tabnanny import verbose
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
+from django.shortcuts import resolve_url
 
 
 class User(AbstractUser):
@@ -24,3 +25,16 @@ class User(AbstractUser):
                               choices=GenderChoices.choices, 
                               verbose_name='성별',
                               help_text='성별을 선택하세요')
+
+    def _str__(self):
+        return self.username
+
+    @property
+    def user_profile_image_url(self):
+        try:
+            img = self.profile_image.url
+        except:
+            img = resolve_url('pydenticon_image', self.username)
+        return img 
+            
+            

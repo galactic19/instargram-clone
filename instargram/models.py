@@ -44,7 +44,8 @@ class Post(models.Model):
             tags, _ = Tag.objects.get_or_create(name=tag_name)
             tag_list.append(tags)
         return tag_list
-            
+     
+    @property       
     def caption_tag_links(self):
         '''
             태그에 링크를 걸어줄려고 합니다. 정규식으로 찾은 태그들을 
