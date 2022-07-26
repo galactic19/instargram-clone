@@ -10,9 +10,11 @@
                 {% for post in object_list %}
                     <div class="card my-5">
                         <div class="card-header">
-                            <img src="{{ post.author.user_profile_image_url }}" 
+                            <a href="{% url 'instargram:user_page' post.author %}" class="text-decoration-none text-dark">
+                                <img src="{{ post.author.user_profile_image_url }}" 
                                 style="width:35px;height:35px" class="profile-image" alt="" srcset="">
-                            <span class="small">{{post.author}}</span>
+                                <span class="small">{{post.author}}</span>
+                            </a>
                         </div>
                         <div class="card-body p-0">
                             <a href="{% url 'instargram:post_detail' post.pk %}">

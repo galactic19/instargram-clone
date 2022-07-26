@@ -55,8 +55,7 @@ def signup(request):
 
 @login_required
 def profile_list(request):
-    return render(request, 'accounts/profile_main.html')
-    # return render(request, 'accounts/profile_list.html')
+    return render(request, 'accounts/profile_list.html')
 
 
 

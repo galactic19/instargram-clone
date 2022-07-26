@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import creating_views, listing_views
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from .views import creating_views, listing_views, userpage_views
 
 app_name='instargram'
 
 urlpatterns = [
     path('', listing_views.post_list, name='post_list'),
+    path('userpage/<str:username>/', userpage_views.user_page, name="user_page"),
     path('post_new', creating_views.post_new, name="post_new"),
     path('post/', listing_views.post_list, name='post_list'),
     path('post/<int:pk>/', listing_views.post_detail, name="post_detail"),
