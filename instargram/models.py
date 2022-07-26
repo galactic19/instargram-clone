@@ -9,6 +9,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = '태그 관리'
 
     def __str__(self):

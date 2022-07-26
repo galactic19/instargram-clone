@@ -39,7 +39,11 @@
               <img src="{{ user.user_profile_image_url }}" alt="{{ user.username}}" title="{{ user}}" class="profile-image">
             </a>
           </li>
+          <a href="{% url 'accounts:logout' %}" class="text-decoration-none text-dark">로그아웃</a>
+          {% else %}
+            <a href="{% url 'accounts:login' %}" class="text-decoration-none text-dark">로그인</a>
           {% endif %}
+            
           
         </ul>
     </header>    

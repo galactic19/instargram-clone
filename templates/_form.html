@@ -1,11 +1,18 @@
 {% load django_bootstrap5 %}
 {% if form %}
-<h3 class="text-center pb-3">{{title_label|default:''}}</h3>
-<hr>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {% bootstrap_form form%}
-    <button type="submit" class="btn btn-primary btn-sm">{{ submit_label|default:'저장' }}</button>
+    <div class="card">
+        <div class="card-header">
+            {{title_label|default:''}}
+        </div>
+        <div class="card-body">
+            {% bootstrap_form form%}
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-sm">{{ submit_label|default:'저장' }}</button>
+        </div>
+    </div>
 </form>
 {% else %}
 잘못된 접근입니다 관리자에게 문의해주세요

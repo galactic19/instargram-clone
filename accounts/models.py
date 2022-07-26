@@ -10,7 +10,7 @@ class User(AbstractUser):
         MALE = 'M', '남성'
         FEMALE = 'F', '여성'
 
-    profile_image = models.ImageField(upload_to='profile/image/%Y/%m/%d', blank=True,
+    profile_image = models.ImageField(upload_to='profile/image/%Y/%m/%d', blank=True, verbose_name='프로필 이미지',
                                       help_text='프로필 이미지의 크기는 24x24 입니다.')
     website_url = models.URLField(blank=True)
     bio = models.TextField(blank=True)

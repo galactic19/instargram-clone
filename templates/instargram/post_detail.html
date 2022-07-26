@@ -11,25 +11,34 @@
                 <div class="card-header">
                     <img src="{{ post_list.author.user_profile_image_url }}" style="width:35px;height:35px;" 
                         alt="{{ post_list.author.username}}" title="{{ post_list.author.username}}" class="profile-image">
-                    {{post_list.author.username }} / 
+                    {{post_list.author.username }} | 
                     <span class="small">등록일 : {{ post_list.created_at }}</span>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div class="card-img-top text-center">
                         <img src="{{ post_list.photo.url }}" alt="" srcset="" style="width:100%">
                     </div>
-                    <div class="card-text mt-3">
+                    <div class="card-text p-3">
                         {% autoescape off %}
                             {{ post_list.caption_tag_links }}
                         {% endautoescape %}
                     </div>
                 </div>
-                <div class="card-footer">
-                    {% for tag in post_list.tag_set.all %}
-                        <span class="me-3 small badge bg-danger">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-
+                
+                {% if post_list.tag_set.all %}                    
+                    <div class="card-footer">
+                        {% for tag in post_list.tag_set.all %}
+                            <span class="me-3 small badge bg-light text-dark">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                {% if who_is %}                    
+                    <div class="card-footer">
+                        <a href="{% url 'instargram:post_edit' post_list.pk %}" class="btn btn-info btn-sm">글수정</a>
+                        <a href="{% url 'instargram:post_delete' post_list.pk %}" class="btn btn-danger btn-sm">글삭제</a>
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
     </div>

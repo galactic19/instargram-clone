@@ -1,5 +1,5 @@
-{% load static django_bootstrap5 %}
 <!DOCTYPE html>
+{% load static django_bootstrap5 %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -25,8 +25,10 @@
         </div>
     </div>
     
-    <div class="container">
-        {% block content %}{% endblock content %}
+    <div class="container-fluid">
+        <div class="container">
+            {% block content %}{% endblock content %}            
+        </div>
     </div>
 
 

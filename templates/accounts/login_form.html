@@ -5,8 +5,8 @@
 {% block content %}
 
     <div class="container py-5 my-3">
-        <div class="col-sm-3 offset-5">
-            {% include '_form.html' with submit_label='로그인' %}
+        <div class="col-sm-4 offset-4">
+            {% include '_form.html' with submit_label='로그인' title_label='로그인' %}
             
             <div class="alert alert-white">
                 <a href="{% url 'accounts:signup' %}" class="text-decoration-none text-dark">회원이 아니시라면? 회원가입</a>

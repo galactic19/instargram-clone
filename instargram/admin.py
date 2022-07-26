@@ -12,3 +12,4 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     verbose_name = '태그 관리'
+    list_per_page = 10

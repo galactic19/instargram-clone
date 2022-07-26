@@ -12,3 +12,7 @@ body{
     object-fit: cover;
     object-position: 50% 0;
 }
+.profile-main-image {
+    position:relative;
+    
+}
