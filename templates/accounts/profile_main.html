@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static django_bootstrap5 %}
+{% block title %} User 메인{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 text-center p-3">
+                <img src="{{ user.user_profile_image_url }}" alt="" style="width:250px;height:250px;" class="rounded-circle border border-1 profile-main-image" srcset="">
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <p>{{ user.username }}</p>
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+                <p> 0 fallower,  0 fallowing</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

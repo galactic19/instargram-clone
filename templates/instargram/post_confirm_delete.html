@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static django_bootstrap5 %}
+{% block title %} 글삭제{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="container">
+    {% include '_form.html' with submit_label='삭제' title_label='정말 삭제하시겠습니까?' %}
+</div>
+
+{% endblock content %}
