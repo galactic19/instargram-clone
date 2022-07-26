@@ -35,7 +35,7 @@
 
           {% if user.is_authenticated %}
           <li class="nav-item me-3">
-            <a href="{% url 'accounts:profile_list' %}">
+            <a href="{% url 'instargram:user_page' user.username %}">
               <img src="{{ user.user_profile_image_url }}" alt="{{ user.username}}" title="{{ user}}" class="profile-image">
             </a>
           </li>

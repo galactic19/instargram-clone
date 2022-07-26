@@ -1,4 +1,4 @@
-from django.urls import path, reverse_lazy
+from django.urls import path, re_path
 from . import views
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('profile/', views.profile_list, name="profile_list"),
     path('password_change/', views.passord_change, name='password_change'),
     path('edit/', views.profile_edit, name='profile_edit'),
+
+    re_path(r'^usr/(?P<username>[\w.@+-]+)/follow/$', views.user_follow, name="user_follow"),
+    re_path(r'^usr/(?P<username>[\w.@+-]+)/unfollow/$', views.user_unfollow, name="user_unfollow"),
 ]
-
-

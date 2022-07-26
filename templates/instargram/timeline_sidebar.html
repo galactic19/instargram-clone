@@ -1,0 +1,30 @@
+
+
+<div class="d-flex p-2">
+    <div class="me-2">
+        <img src="{{user.user_profile_image_url}}" class="rounded-circle border border-1" alt="">
+    </div>
+
+    <div>
+        <span class="fw-bold">{{user.username}}</span> <br>
+        <span class="small text-muted"><small>{{user.first_name}} {{  user.gender.default }}</small></span>
+    </div>
+</div>
+
+
+<div class="card text-muted bg-light mb-3" style="max-width: 18rem;">
+    <div class="card-header text-muted bg-light">Stories</div>
+    <div class="card-body bg-white">
+        <p class="card-text small">{{ user.bio}}</p>
+    </div>
+</div>
+
+
+<div class="card text-muted mb-3" style="max-width: 18rem;">
+    <div class="card-header text-muted bg-light">친구 추천</div>
+    <div class="card-body bg-white">
+        <p class="card-text small">
+            {% include "instargram/timeline_sidebar_user_follow.html" %}
+        </p>
+    </div>
+</div>

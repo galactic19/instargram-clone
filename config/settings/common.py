@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'django_pydenticon',
     'django_summernote',
+    'easy_thumbnails',
     # My Apps
     'accounts',
     'instargram',
@@ -150,6 +151,15 @@ SUMMERNOTE_CONFIG = {
         'lang': 'ko-KR',
     }
     
+}
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+        'profile': {'size': (250, 250), 'crop': True},
+        'thumb': {'size': (300, 300), 'crop': True},
+    },
 }
 
 

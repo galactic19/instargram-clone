@@ -1,9 +1,18 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib import messages
+from django.contrib.auth import get_user, get_user_model
 from django.views.generic import DeleteView
 from django.contrib.auth.decorators import login_required
 from instargram.models import Post, Tag
 from instargram.forms import PostNewForm
+
+
+@login_required
+def post_index(request):
+    suggested_user_list = get_user_model().objects.exclude(pk=get_user(request).pk)\
+                            .exclude(pk__in=get_user(request).following_set.all())
+    context = {'suggested_user_list': suggested_user_list}
+    return render(request, 'instargram/index.html', context)
 
 
 @login_required

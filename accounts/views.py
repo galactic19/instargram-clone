@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.contrib import messages
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, get_user, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (
-    LoginView, LogoutView, logout_then_login, 
+    LoginView, logout_then_login,
     PasswordChangeView as Auth_PasswordChangeView,
 )
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from .models import User
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+
 from .forms import SignUpForm, ProfileForm, PasswordChageForm
+from .models import User
 
 
 class UserLogin(LoginView):
@@ -81,6 +82,26 @@ class PasswordChangeView(LoginRequiredMixin, Auth_PasswordChangeView):
     def form_valid(self, form):
         messages.success(self.request, '비밀번호가 변경 되었습니다.')
         return super().form_valid(form)
-        
-    
+
 passord_change = PasswordChangeView.as_view()
+
+
+@login_required
+def user_follow(request, username):
+    target_user = get_object_or_404(get_user_model(), username=username, is_active=True)
+    request.user.following.add(target_user)
+    target_user.follower.add(request.user)
+    messages.success(request, '팔로잉 했습니다.')
+    redirect_url = request.headers.get('HTTP_REFERER', 'root')
+    return redirect(redirect_url)
+
+
+
+@login_required
+def user_unfollow(request, username):
+    unfair = get_object_or_404(get_user_model(), username=username) # 구독을 끊기 위한 user 정보
+    get_user(request).following_set.remove(unfair) # 내 정보에서 구독되어있는 위 사람의 정보를 제거
+    unfair.follower_set.remove(get_user(request)) # 구독되어있는 사람에게서 구독중인 유저의 정보를 삭제
+    messages.success(request, f'{unfair.username} 님을 언팔로우 했습니다.')
+    redirect_url = request.headers.get('HTTP_REFERER', 'root')
+    return redirect(redirect_url)

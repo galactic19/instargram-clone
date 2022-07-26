@@ -32,11 +32,11 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                
+
                 {% if who_is %}                    
-                    <div class="card-footer">
-                        <a href="{% url 'instargram:post_edit' post_list.pk %}" class="btn btn-info btn-sm">글수정</a>
-                        <a href="{% url 'instargram:post_delete' post_list.pk %}" class="btn btn-danger btn-sm">글삭제</a>
+                    <div class="card-footer bg-white">
+                        <a href="{% url 'instargram:post_edit' post_list.pk %}" class="btn btn-outline-primary btn-sm">글수정</a>
+                        <a href="{% url 'instargram:post_delete' post_list.pk %}" class="btn btn-outline-secondary btn-sm">글삭제</a>
                     </div>
                 {% endif %}
             </div>

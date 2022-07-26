@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static django_bootstrap5 %}
+{% load static django_bootstrap5 thumbnail %}
 {% block title %} User 메인{% endblock title %}
 
 {% block content %}
@@ -7,30 +7,38 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-12 text-center p-3">
-                <img src="{{ user_page.user_profile_image_url }}" alt="" style="width:250px;height:250px;" class="rounded-circle border border-1 profile-main-image" srcset="">
+                <img src="{{user_page.user_profile_image_250}}" alt="" style="width:250px;height:250px;" class="rounded-circle border border-1 profile-main-image" srcset="">
             </div>
+
+
             <div class="col-md-9 col-sm-12 p-3">
-                <h3 class="border-bottom p-2"> <b> {{ user_page.username }} </b> <span class="small text-secondary">(이메일 인증회원)</span></h3>
-                <p class="border-bottom p-2">
+                <p class="border-bottom p-2"> 
+                    <b class="fs-2"> {{ user_page.username }} </b>
+                    <span class="small text-muted">(이메일 인증회원)</span>
+                </p>
+
+                <p class="border-bottom p-2">{{ post_cnt }} posts,  0 fallower,  0 fallowing</p>
+                <p class="p-2">
                     {{ user_page.first_name }} {{ user_page.last_name }}
 
                     {% if is_user_check  %}
                         <a href="{% url 'accounts:profile_list' %}" class="btn btn-light btn-sm">정보 수정</a>
                     {% endif %}
-                    
+
                 </p>
-                <p class="p-2"> 0 fallower,  0 fallowing</p>
             </div>
         </div>
+
+
         <div class="row">
             <hr class="my-5">
-            {% for image in post_list %}
+            {% for image in user_page.post_set.all %}
                 <div class="col-sm-4 mb-3">
                     <a href="{% url 'instargram:post_detail' image.pk %}">
-                        <img src="{{image.photo.url}}" alt="{{ image.caption }}" style="width:100%" srcset="">
+                        <img src="{{image.thumbnail_256}}" alt="{{ image.caption }}" style="width:100%" srcset="">
                     </a>
                 </div>
             {% endfor %}
         </div>
-    </div>
+    </div>    
 {% endblock content %}

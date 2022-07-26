@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static django_bootstrap5 %}
+{% block title %} 인스타 그램{% endblock title %}
+
+{% block content %}
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-sm-8">
+            <h3 class="mb-3">타임라인</h3>
+            {% for follower in user.following_set.all %}
+                <div class="d-flex py-2">
+                    <div class="">
+                        <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.user_profile_image_url }}"
+                             class="rounded-circle border border-2" style="width:35px;height:35px;">
+                        <span class="text-muted">{{ follower.username }}</span>
+                    </div>
+                    <div class=""><a href="{% url 'accounts:user_unfollow' follower.username %}" class="text-decoration-none">unfollow</a></div>
+                </div>
+            {% endfor %}
+
+            <h3>나를 구독중인 사람</h3>
+            {% for follower in user.follower_set.all %}
+                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.username }}"
+                     title="{{ follower.username }}" class="rounded-circle border border-2" style="width: 35px;height: 35px;">
+                <span class="small">{{ follower.username }}</span>
+                <a href="{% url 'accounts:user_follow' follower.username %}" class="text-decoration-none">맞팔하기</a>
+            {% endfor %}
+
+        </div>
+        <div class="col-sm-4">
+            {% include "instargram/timeline_sidebar.html" %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

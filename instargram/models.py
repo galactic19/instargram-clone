@@ -3,6 +3,7 @@ import re
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from easy_thumbnails.files import get_thumbnailer
 
 
 class Tag(models.Model):
@@ -58,3 +59,8 @@ class Post(models.Model):
             link = r"<a href='{url}' class='text-decoration-none'>{tagname}</a>".format(url=url, tagname=tag.name)
             caption_list = caption_list.replace(tag.name, link)
         return caption_list
+
+    @property
+    def thumbnail_256(self):
+        thumb = get_thumbnailer(self.photo)['thumb'].url
+        return thumb
