@@ -27,13 +27,19 @@
 
                     {% if is_user_check  %}
                         <a href="{% url 'accounts:profile_list' %}" class="btn btn-light btn-sm">정보 수정</a>
+                    {% else %}
+                        {% if is_follow %}
+                            <span class="badge bg-light text-dark">팔로잉중</span>
+                            <a href="{% url 'accounts:user_unfollow' user_page.username %}" class="badge bg-warning rounded-0 text-decoration-none">언팔로우</a>
+                        {% else %}
+                            <a href="{% url 'accounts:user_follow' user_page.username %}" class="badge bg-primary rounded-0 text-decoration-none">팔로잉 하기</a>
+                        {% endif %}
                     {% endif %}
-
                 </p>
             </div>
         </div>
 
-
+        {{ is_following }}
         <div class="row">
             <hr class="my-5">
             {% for image in user_page.post_set.all %}

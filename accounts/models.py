@@ -1,10 +1,9 @@
-from tabnanny import verbose
+from django.contrib.auth import get_user
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
 from django.shortcuts import resolve_url
 from easy_thumbnails.files import get_thumbnailer
-from django.db.models import Q
 
 
 class User(AbstractUser):
