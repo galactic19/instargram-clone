@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.shortcuts import resolve_url
 from easy_thumbnails.files import get_thumbnailer
-from PIL import Image
+from django.db.models import Q
 
 
 class User(AbstractUser):

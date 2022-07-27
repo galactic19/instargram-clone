@@ -1,0 +1,40 @@
+
+            {% if user_follow %}
+            {% for follower in user_follow %}
+                    <div class="d-flex">
+                        <div class="p-2 ps-0">
+                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">
+                                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.username }}"
+                                 title="{{ follower.username }}" class="rounded-circle border border-2" style="width: 35px;height: 35px;">
+                            </a>
+                        </div>
+                        <div class="">
+                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">
+                                <span class="small text-dark">{{ follower.username }}</span><br>
+                                <span class="small text-muted">{{ follower.first_name }}</span>
+                            </a>
+                        </div>
+
+                        {% if is_follow  %}
+
+                        <div class="ms-auto p-2 ">
+                            <a href="{% url 'accounts:user_follow' follower.username %}"
+                               class="text-decoration-none badge bg-white text-primary small">
+                                {{btn_name|default:'전송'}}
+                            </a>
+                        </div>
+                        {% else %}
+
+                        <div class="ms-auto p-2 ">
+                            <a href="{% url 'accounts:user_unfollow' follower.username %}"
+                               class="text-decoration-none badge bg-white text-primary small">
+                                {{btn_name|default:'전송'}}
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+            {% endfor %}
+
+            {% else %}
+                <p class="text-muted small">팔로우중인 회원이 없습니다. (다양한 게시물을 올려보세요 :)</p>
+            {% endif %}

@@ -64,3 +64,8 @@ class Post(models.Model):
     def thumbnail_256(self):
         thumb = get_thumbnailer(self.photo)['thumb'].url
         return thumb
+
+    @property
+    def thumbnail_800(self):
+        thumb = get_thumbnailer(self.photo)['posts'].url
+        return thumb

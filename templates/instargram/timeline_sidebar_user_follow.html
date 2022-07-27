@@ -1,14 +1,18 @@
 {% for suggested_user in suggested_user_list %}
     <div class="d-flex my-1">
         <div class="">
-            <img src="{{ suggested_user.user_profile_image_url }}" alt="{{ suggested_user }}"
-                 class="border border-1 rounded-circle" style="width:35px;height:35px">
+            <a href="{% url 'instargram:user_page' suggested_user.username %}">
+                <img src="{{ suggested_user.user_profile_image_url }}" alt="{{ suggested_user }}"
+                     class="border border-1 rounded-circle" style="width:35px;height:35px">
+            </a>
         </div>
         <div class="ms-1 align-self-center">
-            <span class="text-muted">{{ suggested_user }}</span>
+            <a href="{% url 'instargram:user_page' suggested_user.username %}">
+                <span class="badge text-muted">{{ suggested_user }}</span>
+            </a>
         </div>
         <div class="ms-auto align-self-center">
-            <a href="{% url 'accounts:user_follow' suggested_user.username %}" class="text-decoration-none">follow</a>
+            <a href="{% url 'accounts:user_follow' suggested_user.username %}" class="text-decoration-none small badge text-primary">팔로우</a>
         </div>
     </div>
 {% endfor %}

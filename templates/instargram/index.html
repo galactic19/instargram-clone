@@ -7,25 +7,66 @@
 <div class="container py-3">
     <div class="row">
         <div class="col-sm-8">
-            <h3 class="mb-3">타임라인</h3>
-            {% for follower in user.following_set.all %}
-                <div class="d-flex py-2">
-                    <div class="">
-                        <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.user_profile_image_url }}"
-                             class="rounded-circle border border-2" style="width:35px;height:35px;">
-                        <span class="text-muted">{{ follower.username }}</span>
+            <h3 class="mb-3 fw-bold">타임라인</h3>
+            <p class="small text-muted">이웃들의 새글 피드를 확인 하세요</p>
+                {% include '_post_list_card.html' with object_list=object_list %}
+            <hr>
+                
+            <h3 class="mb-3">팔로잉 ({{ user.following_set.count }})</h3>
+            {% if user.following_set.all %}
+                {% for follower in user.following_set.all %}
+                    <div class="d-flex py-2">
+                        <div class="">
+                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none">
+                                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.user_profile_image_url }}"
+                                     class="rounded-circle border border-2" style="width:35px;height:35px;">
+                                <span class="text-muted">{{ follower.username }}</span>
+                            </a>
+                        </div>
+                        <div class="ms-auto p-2 pe-5">
+                            <a href="{% url 'accounts:user_unfollow' follower.username %}"
+                               class="btn btn-outline-danger btn-sm">팔로우 끊기</a>
+                        </div>
                     </div>
-                    <div class=""><a href="{% url 'accounts:user_unfollow' follower.username %}" class="text-decoration-none">unfollow</a></div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p class="text-muted small">팔로잉중인 회원이 없습니다. (친구의 스토리를 팔로잉 해보세요 :)</p>
+            {% endif %}
 
-            <h3>나를 구독중인 사람</h3>
-            {% for follower in user.follower_set.all %}
-                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.username }}"
-                     title="{{ follower.username }}" class="rounded-circle border border-2" style="width: 35px;height: 35px;">
-                <span class="small">{{ follower.username }}</span>
-                <a href="{% url 'accounts:user_follow' follower.username %}" class="text-decoration-none">맞팔하기</a>
-            {% endfor %}
+            <hr>
+
+{#           <h3>팔로워 ({{ user.follower_set.count }})</h3>#}
+{#            {% if user.follower_set.all %}#}
+{#            {% for follower in user.follower_set.all %}#}
+{#                    <div class="d-flex border-bottom border-light">#}
+{#                        <div class="p-2">#}
+{#                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">#}
+{#                                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.username }}"#}
+{#                                 title="{{ follower.username }}" class="rounded-circle border border-2" style="width: 35px;height: 35px;">#}
+{#                            </a>#}
+{#                        </div>#}
+{#                        <div class="">#}
+{#                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">#}
+{#                                <span class="small text-dark">{{ follower.username }}</span><br>#}
+{#                                <span class="small text-muted">{{ follower.first_name }}</span>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                        <div class="ms-auto p-2 pe-5">#}
+{#                            <a href="{% url 'accounts:user_follow' follower.username %}" class="btn btn-outline-primary btn-sm">팔로우 하기</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#            {% endfor %}#}
+{##}
+{#            {% else %}#}
+{#                <p class="text-muted small">팔로우중인 회원이 없습니다. (다양한 게시물을 올려보세요 :)</p>#}
+{#            {% endif %}#}
+
+
+{#            <h3>맞팔중인 친구</h3>#}
+{#            {% for we_are_follow in followers_user %}#}
+{#                {{ we_are_follow }}#}
+{#            {% endfor %}#}
+
 
         </div>
         <div class="col-sm-4">

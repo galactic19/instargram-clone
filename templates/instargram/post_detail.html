@@ -9,9 +9,11 @@
         {% if post_list %}
             <div class="card">
                 <div class="card-header">
-                    <img src="{{ post_list.author.user_profile_image_url }}" style="width:35px;height:35px;" 
-                        alt="{{ post_list.author.username}}" title="{{ post_list.author.username}}" class="profile-image">
-                    {{post_list.author.username }} | 
+                    <a href="{% url 'instargram:user_page' post_list.author.username %}" class="text-decoration-none text-dark">
+                        <img src="{{ post_list.author.user_profile_image_url }}" style="width:35px;height:35px;"
+                            alt="{{ post_list.author.username}}" title="{{ post_list.author.username}}" class="profile-image">
+                        {{post_list.author.username }}
+                    </a> |
                     <span class="small">등록일 : {{ post_list.created_at }}</span>
                 </div>
                 <div class="card-body p-0">

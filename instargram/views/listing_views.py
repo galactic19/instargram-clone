@@ -1,17 +1,24 @@
-from django.shortcuts import get_object_or_404, render
-from django.contrib import messages
 from django.contrib.auth import get_user, get_user_model
-from django.views.generic import DeleteView
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, render
+
 from instargram.models import Post, Tag
-from instargram.forms import PostNewForm
 
 
 @login_required
 def post_index(request):
+    # 팔로우한 사람의 게시물을 가져옴.
+    posts = Post.objects.all()\
+        .filter(Q(author=get_user(request)) | Q(author__in=get_user(request).following_set.all()))[:6]
+
+    # 팔로우 추천
     suggested_user_list = get_user_model().objects.exclude(pk=get_user(request).pk)\
                             .exclude(pk__in=get_user(request).following_set.all())
-    context = {'suggested_user_list': suggested_user_list}
+    # 맞팔.
+    followers_user = get_user_model().objects.filter(following=get_user(request).pk)\
+                                                .filter(follower=get_user(request).pk)
+    context = {'suggested_user_list': suggested_user_list, 'followers_user':followers_user, 'object_list': posts}
     return render(request, 'instargram/index.html', context)
 
 

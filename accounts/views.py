@@ -83,18 +83,20 @@ class PasswordChangeView(LoginRequiredMixin, Auth_PasswordChangeView):
         messages.success(self.request, '비밀번호가 변경 되었습니다.')
         return super().form_valid(form)
 
-passord_change = PasswordChangeView.as_view()
+
+password_change = PasswordChangeView.as_view()
 
 
 @login_required
 def user_follow(request, username):
     target_user = get_object_or_404(get_user_model(), username=username, is_active=True)
-    request.user.following.add(target_user)
-    target_user.follower.add(request.user)
-    messages.success(request, '팔로잉 했습니다.')
+    get_user(request).following_set.add(target_user)
+    target_user.follower_set.add(request.user)
+
+    print(get_user(request).follower_set.filter(pk=target_user.pk))
+    messages.success(request, '팔로우 했습니다.')
     redirect_url = request.headers.get('HTTP_REFERER', 'root')
     return redirect(redirect_url)
-
 
 
 @login_required

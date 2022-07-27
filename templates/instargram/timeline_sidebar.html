@@ -21,7 +21,26 @@
 
 
 <div class="card text-muted mb-3" style="max-width: 18rem;">
-    <div class="card-header text-muted bg-light">친구 추천</div>
+    <div class="card-header text-muted bg-white small">회원님을 팔로우중인 회원({{ user.follower_set.count }})</div>
+    <div class="card-body bg-white">
+        <p class="card-text small">
+            {% include "instargram/timeline_sidebar_user_following_follower.html" with btn_name='팔로우' user_follow=user.follower_set.all is_follow=True %}
+        </p>
+    </div>
+</div>
+
+
+<div class="card text-muted mb-3" style="max-width: 18rem;">
+    <div class="card-header text-muted bg-white small">회원님이 팔로우중인 회원({{ user.following_set.count }})</div>
+    <div class="card-body bg-white">
+        <p class="card-text small">
+            {% include "instargram/timeline_sidebar_user_following_follower.html" with btn_name='언팔로우' user_follow=user.following_set.all is_follow=False %}
+        </p>
+    </div>
+</div>
+
+<div class="card text-muted mb-3" style="max-width: 18rem;">
+    <div class="card-header text-muted bg-white small">회원님을 위한 추천</div>
     <div class="card-body bg-white">
         <p class="card-text small">
             {% include "instargram/timeline_sidebar_user_follow.html" %}

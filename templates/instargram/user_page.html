@@ -17,7 +17,11 @@
                     <span class="small text-muted">(이메일 인증회원)</span>
                 </p>
 
-                <p class="border-bottom p-2">{{ post_cnt }} posts,  0 fallower,  0 fallowing</p>
+                <p class="border-bottom p-2">
+                    {{ post_cnt }} posts,
+                    {{ user_page.follower_set.count }} follower,
+                    {{ user_page.following_set.count }} following
+                </p>
                 <p class="p-2">
                     {{ user_page.first_name }} {{ user_page.last_name }}
 

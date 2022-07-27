@@ -159,6 +159,7 @@ THUMBNAIL_ALIASES = {
         'avatar': {'size': (50, 50), 'crop': True},
         'profile': {'size': (250, 250), 'crop': True},
         'thumb': {'size': (300, 300), 'crop': True},
+        'posts': {'size': (800, 400), 'crop': True},
     },
 }
 
