@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
     PasswordChangeView as Auth_PasswordChangeView,
 )
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from .forms import SignUpForm, ProfileForm, PasswordChageForm
 from .models import User
@@ -16,14 +16,17 @@ from .models import User
 class UserLogin(LoginView):
     model = User
     template_name = 'accounts/login_form.html'
-    
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             '''
                 로그인 상태 접근 거부 
             '''
-            return redirect('/')       
-        return super().dispatch(request, *args, **kwargs) 
+            redirect_url = self.request.META.get('HTTP_REFERER', '/')
+            return redirect(redirect_url)
+        return super().dispatch(request, *args, **kwargs)
+
+
 login = UserLogin.as_view()
 
 

@@ -1,9 +1,18 @@
 import re
 
 from django.db import models
+from django.contrib.auth import get_user
 from django.urls import reverse
 from django.conf import settings
 from easy_thumbnails.files import get_thumbnailer
+
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class Tag(models.Model):
@@ -15,19 +24,20 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse("instargram:tag_list", args=[self.pk])
     
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='my_post_set')
     photo = models.ImageField(upload_to='instargram/%Y/%m/%d', help_text='파일첨부는 필수 항목 입니다.')
     caption = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     tag_set = models.ManyToManyField(Tag, blank=True)
     location = models.CharField(max_length=50)
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_post_set')
 
     class Meta:
         ordering = ['-created_at']
@@ -35,7 +45,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.caption
-    
+
     def get_absolute_url(self):
         return reverse("instargram:post_detail", args=[self.pk])
 
@@ -46,8 +56,8 @@ class Post(models.Model):
             tags, _ = Tag.objects.get_or_create(name=tag_name)
             tag_list.append(tags)
         return tag_list
-     
-    @property       
+
+    @property
     def caption_tag_links(self):
         '''
             태그에 링크를 걸어줄려고 합니다. 정규식으로 찾은 태그들을 

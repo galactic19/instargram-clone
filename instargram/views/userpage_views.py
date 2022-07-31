@@ -14,7 +14,7 @@ def user_page(request, username):
         is_follow = get_user(request).following_set.filter(pk=user_page.pk).exists()
     else:
         is_follow = False
-    post_cnt = user_page.post_set.count()
+    post_cnt = user_page.my_post_set.count()
     context = {'user_page': user_page,
                'is_user_check': is_user_check,
                'post_cnt': post_cnt,

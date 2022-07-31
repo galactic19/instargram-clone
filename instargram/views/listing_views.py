@@ -1,24 +1,36 @@
+import datetime
+
+from django.contrib import messages
 from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.utils import timezone
 
 from instargram.models import Post, Tag
 
 
 @login_required
 def post_index(request):
+    # 시간에 관련한 설정 / 현재시간에서 3일의 시간을 뺌.
+    timesince = timezone.now() - datetime.timedelta(days=3)
+
     # 팔로우한 사람의 게시물을 가져옴.
     posts = Post.objects.all()\
-        .filter(Q(author=get_user(request)) | Q(author__in=get_user(request).following_set.all()))[:6]
+        .filter(Q(author=get_user(request)) | Q(author__in=get_user(request).following_set.all()))\
+        .filter(created_at__gt=timesince)
 
     # 팔로우 추천
     suggested_user_list = get_user_model().objects.exclude(pk=get_user(request).pk)\
                             .exclude(pk__in=get_user(request).following_set.all())
     # 맞팔.
     followers_user = get_user_model().objects.filter(following=get_user(request).pk)\
-                                                .filter(follower=get_user(request).pk)
-    context = {'suggested_user_list': suggested_user_list, 'followers_user':followers_user, 'object_list': posts}
+                                            .filter(follower=get_user(request).pk)
+    context = {
+                'suggested_user_list': suggested_user_list,
+                'followers_user': followers_user,
+                'object_list': posts
+               }
     return render(request, 'instargram/index.html', context)
 
 
@@ -35,6 +47,30 @@ def post_detail(request, pk):
     who_is = request.user.is_authenticated and request.user == post.author
     context = {'post_list': post, 'who_is':who_is}
     return render(request, 'instargram/post_detail.html', context)
+
+
+@login_required
+def post_like(request, pk):
+    '''
+        포스트 like 를 처리해줄 함수.
+    '''
+    post = get_object_or_404(Post, pk=pk)
+    post.like_user_set.add(get_user(request))
+    messages.success(request, f'{post.author} 포스트에 좋아요를 완료 했습니다.')
+    redirect_url = request.headers.get('HTTP_REFERER', '/')
+    return redirect(redirect_url)
+
+
+def post_unlike(request, pk):
+    '''
+        굳이 unlike 함수가 별도로 필요할까
+        post_like 함수에서 한번에 처리 가능하지 않을까 ?
+    '''
+    post = get_object_or_404(Post, pk=pk)
+    post.like_user_set.remove(get_user(request))
+    messages.info(request, f'{post.author} 좋아요를 취소 했습니다.')
+    redirect_url = request.headers.get('HTTP_REFERER', '/')
+    return redirect(redirect_url)
 
 
 def tag_list(req, pk):
