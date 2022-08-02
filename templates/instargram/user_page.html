@@ -39,10 +39,9 @@
             </div>
         </div>
 
-        {{ is_following }}
         <div class="row">
             <hr class="my-5">
-            {% for image in user_page.post_set.all %}
+            {% for image in user_page.my_post_set.all %}
                 <div class="col-sm-4 mb-3">
                     <a href="{% url 'instargram:post_detail' image.pk %}">
                         <img src="{{image.thumbnail_256}}" alt="{{ image.caption }}" style="width:100%" srcset="">

@@ -36,8 +36,8 @@ def post_index(request):
 
 @login_required
 def post_list(request):
-    post_list = Post.objects.all()
-    context = {'object_list':post_list}
+    post = Post.objects.all()
+    context = {'object_list': post}
     return render(request, 'instargram/post_list.html', context)
 
 
@@ -53,24 +53,32 @@ def post_detail(request, pk):
 def post_like(request, pk):
     '''
         포스트 like 를 처리해줄 함수.
+        post like 를 확인하여 좋아요, 좋아요 취소를 처리함.
     '''
     post = get_object_or_404(Post, pk=pk)
-    post.like_user_set.add(get_user(request))
-    messages.success(request, f'{post.author} 포스트에 좋아요를 완료 했습니다.')
+    like_check = post.like_user_set.filter(pk=get_user(request).pk)
+    if like_check:
+        post.like_user_set.remove(get_user(request))
+        messages.info(request, f'{post.author} 포스트에 좋아요를 취소 했습니다.')
+    else:
+        post.like_user_set.add(get_user(request))
+        messages.success(request, f'{post.author} 포스트에 좋아요를 완료 했습니다.')
+
     redirect_url = request.headers.get('HTTP_REFERER', '/')
     return redirect(redirect_url)
 
 
-def post_unlike(request, pk):
-    '''
-        굳이 unlike 함수가 별도로 필요할까
-        post_like 함수에서 한번에 처리 가능하지 않을까 ?
-    '''
-    post = get_object_or_404(Post, pk=pk)
-    post.like_user_set.remove(get_user(request))
-    messages.info(request, f'{post.author} 좋아요를 취소 했습니다.')
-    redirect_url = request.headers.get('HTTP_REFERER', '/')
-    return redirect(redirect_url)
+# def post_unlike(request, pk):
+#     '''
+#         굳이 unlike 함수가 별도로 필요할까
+#         post_like 함수에서 한번에 처리 가능하지 않을까 ?
+#     '''
+#     post = get_object_or_404(Post, pk=pk)
+#     print(post.like_user_set.filter(pk=get_user(request).pk))
+#     post.like_user_set.remove(get_user(request))
+#     messages.info(request, f'{post.author} 좋아요를 취소 했습니다.')
+#     redirect_url = request.headers.get('HTTP_REFERER', '/')
+#     return redirect(redirect_url)
 
 
 def tag_list(req, pk):

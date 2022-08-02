@@ -1,5 +1,5 @@
-
-     {% if object_list %}
+{% load instargram_tags %}
+            {% if object_list %}
                 {% for post in object_list %}
                     <div class="card my-5">
                         <div class="card-header">
@@ -22,12 +22,15 @@
                         </div>
                         <div class="card-footer bg-white">
                             <div class="col-sm-12">
-                                <a href="{% url 'instargram:post_like' post.pk %}" class="text-decoration-none text-dark">
-                                    <i class="fa fa-heart-o"></i>
-                                </a>
-                                <a href="{% url 'instargram:post_unlike' post.pk %}" class="text-decoration-none text-danger">
-                                    <i class="fa fa-heart"></i>
-                                </a>
+                                {% if post|is_like:user %}
+                                    <a href="{% url 'instargram:post_like' post.pk %}" class="text-decoration-none text-dark">
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'instargram:post_like' post.pk %}" class="text-decoration-none text-danger">
+                                        <i class="fa fa-heart"></i>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
