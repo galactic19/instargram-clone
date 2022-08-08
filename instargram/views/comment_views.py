@@ -2,11 +2,14 @@
 '''
     코멘트에 대해서 이 파일에서 처리한다.
 '''
+
 from django.contrib.auth import get_user
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse
 
 from ..forms import CommentNewForm
-from ..models import Post, Tag, Comment
+from ..models import Post
 
 
 def comment_new(request, post_pk):
@@ -18,6 +21,7 @@ def comment_new(request, post_pk):
             comment.author = get_user(request)
             comment.post_id = post
             comment.save()
-            return redirect(post)
+            return redirect(comment.post_id)
     else:
-        pass
+        redirect_url = request.headers.get('HTTP_REFERER', '/')
+        return redirect(redirect_url)
