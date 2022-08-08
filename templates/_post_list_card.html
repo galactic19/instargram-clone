@@ -46,9 +46,19 @@
                             <div class="card p-0 rounded-0">
                                 <div class="card-header">댓글</div>
                                 <div class="card-body">
+
                                     {% for comment in post.post_id.all %}
-                                        <div class="card-text border-bottom">
-                                            <span class="small">{{ comment.author }}</span>
+                                        {% if user == comment.author %}
+                                            <div class="card-text bg-light border-bottom">
+                                        {% else %}
+                                            <div class="card-text border-bottom pt-1">
+                                        {% endif %}
+                                            <a href="{% url 'instargram:user_page' comment.author %}" class="text-decoration-none">
+                                                <img src="{{ comment.author.user_profile_image_url }}"
+                                                     class="rounded-circle border border-2" alt="{{ comment.author }}"
+                                                     title="{{ comment.author }}">
+                                                <span class="small">{{ comment.author }}</span>
+                                            </a>
                                             <span class="small text-muted">{{ comment.created_at }}</span>
                                             <p class="small fw-bold">{{ comment }}</p>
                                         </div>
