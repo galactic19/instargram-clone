@@ -12,9 +12,9 @@ class User(AbstractUser):
         FEMALE = 'F', '여성'
 
     follower_set = models.ManyToManyField('self', blank=True, symmetrical=False,
-                                          related_name='following',)
+                                          related_name='following')
     following_set = models.ManyToManyField('self', blank=True, symmetrical=False,
-                                           related_name='follower',)
+                                           related_name='follower')
 
     profile_image = models.ImageField(upload_to='profile/image/%Y/%m/%d', blank=True, verbose_name='프로필 이미지',
                                       help_text='프로필 이미지의 크기는 24x24 입니다.')

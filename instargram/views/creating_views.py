@@ -58,3 +58,4 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
             return super().dispatch(request, *args, **kwargs)
         else:
             return redirect('/')
+

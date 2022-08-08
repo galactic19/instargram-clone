@@ -27,7 +27,7 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return reverse("instargram:tag_list", args=[self.pk])
-    
+
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='my_post_set')
@@ -38,6 +38,7 @@ class Post(models.Model):
     tag_set = models.ManyToManyField(Tag, blank=True)
     location = models.CharField(max_length=50)
     like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_post_set')
+    is_used = models.BooleanField(verbose_name='공개여부',default=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -70,6 +71,9 @@ class Post(models.Model):
             caption_list = caption_list.replace(tag.name, link)
         return caption_list
 
+    def post_is_used(self):
+        return self.is_used
+
     @property
     def thumbnail_256(self):
         thumb = get_thumbnailer(self.photo)['thumb'].url
@@ -79,3 +83,15 @@ class Post(models.Model):
     def thumbnail_800(self):
         thumb = get_thumbnailer(self.photo)['posts'].url
         return thumb
+
+
+class Comment(BaseModel):
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_id')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+
+    class Meta:
+        ordering = '-created_at', '-updated_at'
+
+    def __str__(self):
+        return self.content

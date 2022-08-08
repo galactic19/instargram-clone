@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load instargram_tags %}
 {% block title %} Detail{% endblock title %}
 
 {% block content %}
@@ -28,12 +28,37 @@
                 </div>
                 
                 {% if post_list.tag_set.all %}                    
-                    <div class="card-footer">
+                    <div class="card-text">
                         {% for tag in post_list.tag_set.all %}
                             <span class="me-3 small badge bg-light text-dark">{{ tag }}</span>
                         {% endfor %}
                     </div>
                 {% endif %}
+
+                <div class="card-footer">
+                    {% if not post_list|is_like:user %}
+                        <a href="{% url 'instargram:post_like' post_list.pk %}" class="text-decoration-none text-dark">
+                            <i class="fa fa-heart-o"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'instargram:post_like' post_list.pk %}" class="text-decoration-none text-danger">
+                            <i class="fa fa-heart"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="card bg-light rounded-0">
+                    <div class="card-header">댓글</div>
+                    <div class="card-body">
+                        {% for comment in post_list.post_id.all %}
+                            <div class="card-text">
+                                <span class="small text-muted">{{ comment.author }}</span>
+                                <span class="small lead">{{ comment }}</span>
+                                <span class="small text-muted"><small>{{ comment.created_at }}</small></span>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
 
                 {% if who_is %}                    
                     <div class="card-footer bg-white">

@@ -15,9 +15,10 @@ def user_page(request, username):
     else:
         is_follow = False
     post_cnt = usr_page.my_post_set.count()
-    context = {'user_page': usr_page,
-               'is_user_check': is_user_check,
-               'post_cnt': post_cnt,
-               'is_follow': is_follow
+    context = {
+                'user_page': usr_page,
+                'is_user_check': is_user_check,
+                'post_cnt': post_cnt,
+                'is_follow': is_follow
                }
     return render(request, 'instargram/user_page.html', context)

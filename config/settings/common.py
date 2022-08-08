@@ -46,18 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 추가한 것
+    'django.contrib.humanize',
     # Third Apps
     'debug_toolbar',
     'django_bootstrap5',
     'django_pydenticon',
     'django_summernote',
     'easy_thumbnails',
+    # 'tailwind',
     # My Apps
     'accounts',
     'instargram',
     'testmodel',
+    # 'theme',
     
 ]
+
+# TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",

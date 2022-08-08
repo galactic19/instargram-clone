@@ -35,38 +35,6 @@
 
             <hr>
 
-{#           <h3>팔로워 ({{ user.follower_set.count }})</h3>#}
-{#            {% if user.follower_set.all %}#}
-{#            {% for follower in user.follower_set.all %}#}
-{#                    <div class="d-flex border-bottom border-light">#}
-{#                        <div class="p-2">#}
-{#                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">#}
-{#                                <img src="{{ follower.user_profile_image_url }}" alt="{{ follower.username }}"#}
-{#                                 title="{{ follower.username }}" class="rounded-circle border border-2" style="width: 35px;height: 35px;">#}
-{#                            </a>#}
-{#                        </div>#}
-{#                        <div class="">#}
-{#                            <a href="{% url 'instargram:user_page' follower.username %}" class="text-decoration-none text-dark">#}
-{#                                <span class="small text-dark">{{ follower.username }}</span><br>#}
-{#                                <span class="small text-muted">{{ follower.first_name }}</span>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                        <div class="ms-auto p-2 pe-5">#}
-{#                            <a href="{% url 'accounts:user_follow' follower.username %}" class="btn btn-outline-primary btn-sm">팔로우 하기</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#            {% endfor %}#}
-{##}
-{#            {% else %}#}
-{#                <p class="text-muted small">팔로우중인 회원이 없습니다. (다양한 게시물을 올려보세요 :)</p>#}
-{#            {% endif %}#}
-
-
-{#            <h3>맞팔중인 친구</h3>#}
-{#            {% for we_are_follow in followers_user %}#}
-{#                {{ we_are_follow }}#}
-{#            {% endfor %}#}
-
 
         </div>
         <div class="col-sm-4">
